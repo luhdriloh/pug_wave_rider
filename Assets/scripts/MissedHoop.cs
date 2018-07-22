@@ -10,6 +10,6 @@ public class MissedHoop : MonoBehaviour {
 			return;
 		}
 
-		GameConstants.scrollingSpeed = Mathf.Min(GameConstants.scrollingSpeed * .7f, GameConstants.minScrollingSpeed);
+		GameController.instance.LoseSpeed ();
 	}
 }

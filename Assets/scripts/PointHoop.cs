@@ -9,7 +9,7 @@ public class PointHoop : MonoBehaviour {
 		}
 
 		// score a point and increase the game speed
-		GameController.instance.PlayerScored (GetPointsScored ());
+		GameController.instance.PlayerScored (Mathf.Ceil(GetPointsScored ()));
 		GameController.instance.PickUpSpeed();
 	}
 
