@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ObstaclePool : MonoBehaviour {
-	public int currentObstacle = 0;
 	public int poolSize = 5;
 	public GameObject obstacle;
 	public float timeSinceLastSpawn = 0;
@@ -19,7 +18,6 @@ public class ObstaclePool : MonoBehaviour {
 			prefabTagName = "Enemy",
 			poolSize = poolSize,
 			initialPosition = GameConstants.poolStartPosition
-
 		};
 
 		pool = new ObjectPool (config);
@@ -37,7 +35,6 @@ public class ObstaclePool : MonoBehaviour {
 			timeSinceLastSpawn = 0;
 			float randomX = Random.Range (GameConstants.minX, GameConstants.maxX);
 			pool.BorrowFromPool().transform.position = new Vector2 (randomX, GameConstants.spawnY);
-			currentObstacle = (currentObstacle + 1) % poolSize;
 		}
 	}
 }

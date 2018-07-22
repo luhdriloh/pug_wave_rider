@@ -25,6 +25,7 @@ public class GameController : MonoBehaviour {
 
 	void Update() {
 		if (Input.GetKeyDown (KeyCode.Space)) {
+			GameConstants.scrollingSpeed = GameConstants.minScrollingSpeed;
 			SceneManager.LoadScene (SceneManager.GetActiveScene().buildIndex);
 		}
 	}
@@ -48,9 +49,10 @@ public class GameController : MonoBehaviour {
 	}
 
 	public void PickUpSpeed() {
-		GameConstants.scrollingSpeed += .1f;
+		Debug.Log ("speed: " + GameConstants.scrollingSpeed);
+		GameConstants.scrollingSpeed -= .2f;
 	}
-
+		
 	public void LoseSpeed() {
 		GameConstants.scrollingSpeed = Mathf.Max (GameConstants.scrollingSpeed * .65f , GameConstants.minScrollingSpeed);
 	}

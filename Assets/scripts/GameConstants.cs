@@ -5,8 +5,7 @@ using UnityEngine;
 public class GameConstants : MonoBehaviour {
 	// Game speed
 	public static float minScrollingSpeed = -4f;
-	public static float scrollingSpeed = minScrollingSpeed;
-
+	public static float scrollingSpeed = -4f;
 	public static Vector2 poolStartPosition = new Vector2(0f, -20);
 	public static float maxX = 2.37f;
 	public static float minX = -2.37f;
