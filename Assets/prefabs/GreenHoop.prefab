@@ -40,9 +40,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4770371244225256}
   - component: {fileID: 61321768655883058}
-  - component: {fileID: 114625236497486932}
   - component: {fileID: 50047552192264818}
   - component: {fileID: 114363319766133986}
+  - component: {fileID: 114312519203025406}
   m_Layer: 0
   m_Name: HoopScoreRules
   m_TagString: Untagged
@@ -337,6 +337,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rigidBody: {fileID: 0}
+--- !u!114 &114312519203025406
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1289136288504088}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c86f51764c4be4a1a9b2445f8ec037ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speedIncrease: 0.2
 --- !u!114 &114363319766133986
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -373,17 +385,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rigidBody: {fileID: 0}
---- !u!114 &114625236497486932
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1289136288504088}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c86f51764c4be4a1a9b2445f8ec037ce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114809169524454824
 MonoBehaviour:
   m_ObjectHideFlags: 1

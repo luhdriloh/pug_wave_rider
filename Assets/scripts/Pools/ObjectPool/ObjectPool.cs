@@ -14,7 +14,6 @@ public class ObjectPool : MonoBehaviour
 		InstantiatePool ();
 	}
 
-
 	private void InstantiatePool()
 	{
 		indexOfNextBorrowedObject = 0;

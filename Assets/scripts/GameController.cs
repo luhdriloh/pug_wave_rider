@@ -12,6 +12,7 @@ public class GameController : MonoBehaviour {
 
 	public Text speedText;
 	public Text scoreText;
+	public Text pointsText;
 	public GameObject gameOverText;
 
 	void Awake() {
@@ -38,11 +39,17 @@ public class GameController : MonoBehaviour {
 
 	public void PlayerScored(float points) {
 		score += Mathf.Ceil(points);
+		float bonus = ((Mathf.Pow (-GameConstants.scrollingSpeed, 1 + GameConstants.minScrollingSpeed - GameConstants.scrollingSpeed) / -GameConstants.scrollingSpeed) - 1) * 100;
+
 		scoreText.text = "Score\n" + score;
 	}
 
-	public void PickUpSpeed() {
-		GameConstants.scrollingSpeed -= .2f;
+	public void SetPoints(float points) {
+		pointsText.text = "Points\n" + points;
+	}
+
+	public void PickUpSpeed(float speed) {
+		GameConstants.scrollingSpeed -= speed;
 		speedText.text = "Speed\n" + Mathf.Ceil(GameConstants.scrollingSpeed * -50f) + "mph";
 	}
 		
