@@ -12,4 +12,7 @@ public class GameConstants : MonoBehaviour {
 	public static float spawnY = 10f;
 
 	public static int pointPerHoop = 100;
+
+	public static float timeBetweenSpawns = .8f;
+	public static System.DateTime timeOfLastSpawn = System.DateTime.UtcNow;
 }

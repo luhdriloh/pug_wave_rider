@@ -7,8 +7,8 @@ public class GreenHoopPool : MonoBehaviour
 	public int poolSize = 5;
 	public GameObject prefab;
 	public float timeSinceLastSpawn = 0;
-	public float spawnRateMin = 2f;
-	public float spawnRateMax = 4.5f;
+	public float spawnRateMin = .5f;
+	public float spawnRateMax = 5f;
 	public float timeLeftForNextSpawn;
 
 	public ObjectPool pool;
@@ -34,16 +34,25 @@ public class GreenHoopPool : MonoBehaviour
 			return;
 		}
 
+
+		System.DateTime now = System.DateTime.UtcNow;
+		double secondsSinceLastSpawn = (now - GameConstants.timeOfLastSpawn).TotalSeconds;
+
+		if (secondsSinceLastSpawn < GameConstants.timeBetweenSpawns)
+		{
+			return;
+		}
+			
 		timeSinceLastSpawn += Time.deltaTime;
 
 		if (TimeForNextSpawn())
 		{
-			timeSinceLastSpawn = 0;
-			ResetTimeForNextSpawn ();
-
 			float randomX = UnityEngine.Random.Range (GameConstants.minX, GameConstants.maxX);
 			GameObject greenHoop = pool.BorrowFromPool();
 			MoveChildren (greenHoop, new Vector2(randomX, GameConstants.spawnY));
+			GameController.instance.SetTimeOfLastSpawn (now);
+			timeSinceLastSpawn = 0;
+			ResetTimeForNextSpawn ();
 		}
 	}
 

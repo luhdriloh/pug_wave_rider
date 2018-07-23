@@ -37,14 +37,23 @@ public class BlueHoopPool : MonoBehaviour
 			return;
 		}
 
+
+		System.DateTime now = System.DateTime.UtcNow;
+		double secondsSinceLastSpawn = (now - GameConstants.timeOfLastSpawn).TotalSeconds;
+
+		if (secondsSinceLastSpawn < GameConstants.timeBetweenSpawns)
+		{
+			return;
+		}
+			
 		timeSinceLastSpawn += Time.deltaTime;
 
 		if (TimeForNextSpawn())
 		{
+			CreateBlueHoopTunnel ();
+			GameController.instance.SetTimeOfLastSpawn (now + System.TimeSpan.FromSeconds(2.3));
 			timeSinceLastSpawn = 0;
 			ResetTimeForNextSpawn ();
-
-			CreateBlueHoopTunnel ();
 		}
 	}
 

@@ -23,6 +23,8 @@ public class GameController : MonoBehaviour {
 	}
 
 	void Update() {
+		PlayerScored (-GameConstants.scrollingSpeed * 50f * Time.deltaTime);
+
 		if (Input.GetKeyDown (KeyCode.Space)) {
 			GameConstants.scrollingSpeed = GameConstants.minScrollingSpeed;
 			SceneManager.LoadScene (SceneManager.GetActiveScene().buildIndex);
@@ -35,19 +37,21 @@ public class GameController : MonoBehaviour {
 	}
 
 	public void PlayerScored(float points) {
-		score += points;
-
+		score += Mathf.Ceil(points);
 		scoreText.text = "Score\n" + score;
 	}
 
 	public void PickUpSpeed() {
-		Debug.Log ("speed: " + GameConstants.scrollingSpeed);
 		GameConstants.scrollingSpeed -= .2f;
 		speedText.text = "Speed\n" + Mathf.Ceil(GameConstants.scrollingSpeed * -50f) + "mph";
 	}
 		
 	public void LoseSpeed() {
-		GameConstants.scrollingSpeed = Mathf.Max (GameConstants.scrollingSpeed * .7f , GameConstants.minScrollingSpeed);
+		GameConstants.scrollingSpeed = Mathf.Min (GameConstants.scrollingSpeed * .7f , GameConstants.minScrollingSpeed);
 		speedText.text = "Speed\n" + Mathf.Ceil(GameConstants.scrollingSpeed * -50f) + "mph";
+	}
+
+	public void SetTimeOfLastSpawn(System.DateTime time) {
+		GameConstants.timeOfLastSpawn = time;
 	}
 }
