@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class WaveRider : MonoBehaviour {
+	public GameObject explosion;
 	public Rigidbody2D rigidBody;
 	public float horizontalMovement = 12f;
 	public float tiltAngle = 25.0f;
@@ -28,11 +29,15 @@ public class WaveRider : MonoBehaviour {
 	}
 
 	void OnCollisionEnter2D(Collision2D other) {
-		if (!other.gameObject.name.Equals("enemy", System.StringComparison.InvariantCultureIgnoreCase)) {
+		if (!other.gameObject.name.Equals("Missile", System.StringComparison.InvariantCultureIgnoreCase)) {
 			return;
 		}
 
+
 		rigidBody.velocity = Vector2.zero;
 		GameController.instance.PlayerDied ();
+		Instantiate (explosion, transform.position, Quaternion.identity);
+		Destroy (other.gameObject);
+		gameObject.SetActive (false);
 	}
 }

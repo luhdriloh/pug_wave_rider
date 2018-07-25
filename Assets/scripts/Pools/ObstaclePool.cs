@@ -17,7 +17,7 @@ public class ObstaclePool : MonoBehaviour {
 		PoolConfiguration config = new PoolConfiguration
 		{
 			prefab = obstacle,
-			prefabTagName = "Enemy",
+			prefabTagName = "Missile",
 			poolSize = poolSize,
 			initialPosition = GameConstants.poolStartPosition
 		};
