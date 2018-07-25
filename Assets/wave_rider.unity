@@ -376,6 +376,7 @@ GameObject:
   - component: {fileID: 792068837}
   - component: {fileID: 792068836}
   - component: {fileID: 792068838}
+  - component: {fileID: 792068839}
   m_Layer: 0
   m_Name: GameController
   m_TagString: Untagged
@@ -437,7 +438,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   poolSize: 5
-  obstacle: {fileID: 1346894524265980, guid: c827ad73982b844d3a265f325d85a028, type: 2}
+  obstacle: {fileID: 1519133373773664, guid: 8b2cae28e345043b9a0aad8684f04efb, type: 2}
   timeSinceLastSpawn: 0
   spawnRateMin: 0.5
   spawnRateMax: 5
@@ -481,6 +482,17 @@ MonoBehaviour:
   spawnRateMax: 25
   timeLeftForNextSpawn: 0
   pool: {fileID: 0}
+--- !u!114 &792068839
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 792068832}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec4aff34caef44ae9b6c763344c9c7c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &809720136
 GameObject:
   m_ObjectHideFlags: 0

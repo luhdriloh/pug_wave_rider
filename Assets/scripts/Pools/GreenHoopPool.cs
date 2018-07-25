@@ -47,7 +47,7 @@ public class GreenHoopPool : MonoBehaviour
 
 		if (TimeForNextSpawn())
 		{
-			float randomX = UnityEngine.Random.Range (GameConstants.minX, GameConstants.maxX);
+			float randomX = UnityEngine.Random.Range (GameConstants.hoopMinX, GameConstants.hoopMaxX);
 			GameObject greenHoop = pool.BorrowFromPool();
 			MoveChildren (greenHoop, new Vector2(randomX, GameConstants.spawnY));
 			GameController.instance.SetTimeOfLastSpawn (now);

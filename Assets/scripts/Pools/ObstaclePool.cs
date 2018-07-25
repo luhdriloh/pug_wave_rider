@@ -42,8 +42,13 @@ public class ObstaclePool : MonoBehaviour {
 		timeSinceLastSpawn += Time.deltaTime;
 
 		if (TimeForNextSpawn()) {
-			float randomX = Random.Range (GameConstants.minX, GameConstants.maxX);
-			pool.BorrowFromPool().transform.position = new Vector2 (randomX, GameConstants.spawnY);
+			float randomX = Random.Range (GameConstants.obstacleMinX, GameConstants.obstacleMaxX);
+			GameObject obj = pool.BorrowFromPool ();
+			obj.transform.position = new Vector2 (randomX, GameConstants.spawnY);
+
+			// rotate the missile 180 on the z axis
+			obj.transform.rotation = Quaternion.Euler (0, 0, 180);
+
 			GameController.instance.SetTimeOfLastSpawn (now);
 			timeSinceLastSpawn = 0;
 			ResetTimeForNextSpawn ();

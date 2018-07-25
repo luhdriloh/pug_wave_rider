@@ -7,8 +7,10 @@ public class GameConstants : MonoBehaviour {
 	public static float minScrollingSpeed = -4f;
 	public static float scrollingSpeed = -4f;
 	public static Vector2 poolStartPosition = new Vector2(0f, -20);
-	public static float maxX = 2.37f;
-	public static float minX = -2.37f;
+	public static float obstacleMaxX = 4.63f;
+	public static float obstacleMinX = -4.63f;
+	public static float hoopMaxX = 3.27f;
+	public static float hoopMinX = -3.27f;
 	public static float spawnY = 10f;
 
 	public static int pointPerHoop = 1000;

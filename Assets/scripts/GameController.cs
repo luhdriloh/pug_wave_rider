@@ -24,7 +24,6 @@ public class GameController : MonoBehaviour {
 	}
 
 	void Update() {
-		PlayerScored (-GameConstants.scrollingSpeed * 50f * Time.deltaTime);
 
 		if (Input.GetKeyDown (KeyCode.Space)) {
 			GameConstants.scrollingSpeed = GameConstants.minScrollingSpeed;
@@ -50,6 +49,7 @@ public class GameController : MonoBehaviour {
 
 	public void PickUpSpeed(float speed) {
 		GameConstants.scrollingSpeed -= speed;
+		Debug.Log ("speed: " + GameConstants.scrollingSpeed);
 		speedText.text = "Speed\n" + Mathf.Ceil(GameConstants.scrollingSpeed * -50f) + "mph";
 	}
 		

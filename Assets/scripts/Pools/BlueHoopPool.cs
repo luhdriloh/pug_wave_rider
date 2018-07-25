@@ -7,8 +7,8 @@ public class BlueHoopPool : MonoBehaviour
 	public int poolSize = 15;
 	public GameObject prefab;
 	public float timeSinceLastSpawn = 0;
-	public float spawnRateMin = 12f;
-	public float spawnRateMax = 30f;
+	public float spawnRateMin = 10f;
+	public float spawnRateMax = 25f;
 	public float timeLeftForNextSpawn;
 
 	private float hoopXVariability = .22f;
@@ -36,7 +36,6 @@ public class BlueHoopPool : MonoBehaviour
 		{
 			return;
 		}
-
 
 		System.DateTime now = System.DateTime.UtcNow;
 		double secondsSinceLastSpawn = (now - GameConstants.timeOfLastSpawn).TotalSeconds;
@@ -68,7 +67,7 @@ public class BlueHoopPool : MonoBehaviour
 	private void CreateBlueHoopTunnel()
 	{
 		float hoopYPos = GameConstants.spawnY;
-		float hoopXPos = UnityEngine.Random.Range (GameConstants.minX, GameConstants.maxX);
+		float hoopXPos = UnityEngine.Random.Range (GameConstants.hoopMinX, GameConstants.hoopMaxX);
 
 		for (int i = 0; i < poolSize; i++)
 		{
