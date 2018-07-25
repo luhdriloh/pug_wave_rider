@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class GameController : MonoBehaviour {
 	public static GameController instance;
-	public bool gameover = false;
+	public bool gameover = true;
 	public float score = 0;
 	public float currentPoints = 0;
 
@@ -24,8 +24,9 @@ public class GameController : MonoBehaviour {
 	}
 
 	void Update() {
-
+		
 		if (Input.GetKeyDown (KeyCode.Space)) {
+			gameover = false;
 			GameConstants.scrollingSpeed = GameConstants.minScrollingSpeed;
 			SceneManager.LoadScene (SceneManager.GetActiveScene().buildIndex);
 		}

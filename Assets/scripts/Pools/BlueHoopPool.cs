@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class BlueHoopPool : MonoBehaviour
 {
-	public int currentObstacle = 0;
 	public int poolSize = 15;
 	public GameObject prefab;
 	public float timeSinceLastSpawn = 0;
