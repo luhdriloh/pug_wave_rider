@@ -50,16 +50,20 @@ public class GameController : MonoBehaviour {
 
 	public void PickUpSpeed(float speed) {
 		GameConstants.scrollingSpeed -= speed;
-		Debug.Log ("speed: " + GameConstants.scrollingSpeed);
-		speedText.text = "Speed\n" + Mathf.Ceil(GameConstants.scrollingSpeed * -50f) + "mph";
+		ChangeSpeedText (Mathf.Ceil(GameConstants.scrollingSpeed * -50f));
 	}
 		
 	public void LoseSpeed() {
 		GameConstants.scrollingSpeed = Mathf.Min (GameConstants.scrollingSpeed * .7f , GameConstants.minScrollingSpeed);
-		speedText.text = "Speed\n" + Mathf.Ceil(GameConstants.scrollingSpeed * -50f) + "mph";
+		ChangeSpeedText (Mathf.Ceil (GameConstants.scrollingSpeed * -50f));
 	}
 
 	public void SetTimeOfLastSpawn(System.DateTime time) {
 		GameConstants.timeOfLastSpawn = time;
+	}
+
+	private void ChangeSpeedText(float newSpeed) {
+		Debug.Log ("Speed: " + GameConstants.scrollingSpeed);
+		speedText.text = "Speed\n" + newSpeed + "km/h";
 	}
 }

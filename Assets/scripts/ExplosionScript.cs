@@ -6,7 +6,9 @@ public class ExplosionScript : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		Invoke ("Die", 2.5f);
+		AudioSource explosion = GetComponent<AudioSource> ();
+		explosion.Play ();
+		Invoke ("Die", 7f);
 	}
 	
 	// Update is called once per frame
