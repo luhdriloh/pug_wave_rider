@@ -39,8 +39,6 @@ public class GameController : MonoBehaviour {
 
 	public void PlayerScored(float points) {
 		score += Mathf.Ceil(points);
-		float bonus = ((Mathf.Pow (-GameConstants.scrollingSpeed, 1 + GameConstants.minScrollingSpeed - GameConstants.scrollingSpeed) / -GameConstants.scrollingSpeed) - 1) * 100;
-
 		scoreText.text = "Score\n" + score;
 	}
 

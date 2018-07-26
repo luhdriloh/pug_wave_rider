@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ObstaclePool : MonoBehaviour {
+	private IncomingArrowPool arrowPool;
+
 	public int poolSize = 5;
 	public GameObject obstacle;
 	public float timeSinceLastSpawn = 0;
@@ -14,6 +16,8 @@ public class ObstaclePool : MonoBehaviour {
 
 	// Use this for initialization
 	void Awake () {
+		arrowPool = GetComponent<IncomingArrowPool> ();
+
 		PoolConfiguration config = new PoolConfiguration
 		{
 			prefab = obstacle,
@@ -48,6 +52,8 @@ public class ObstaclePool : MonoBehaviour {
 
 			// rotate the missile 180 on the z axis
 			obj.transform.rotation = Quaternion.Euler (0, 0, 180);
+
+			arrowPool.SetArrow (GameConstants.ArrowColor.Red, obj.transform);
 
 			GameController.instance.SetTimeOfLastSpawn (now);
 			timeSinceLastSpawn = 0;

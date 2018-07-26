@@ -375,6 +375,7 @@ GameObject:
   - component: {fileID: 792068833}
   - component: {fileID: 792068837}
   - component: {fileID: 792068836}
+  - component: {fileID: 792068840}
   - component: {fileID: 792068838}
   - component: {fileID: 792068839}
   m_Layer: 0
@@ -492,6 +493,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec4aff34caef44ae9b6c763344c9c7c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &792068840
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 792068832}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b779cae1995c4dfd8e720bbd540252e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  poolSize: 5
+  redArrowPrototype: {fileID: 1621266630376998, guid: 42640146f15e64a92b32e2746438b91e,
+    type: 2}
+  greenArrowPrototype: {fileID: 1162090650936246, guid: e0dccbbe00a0e4da79e97d034fd5df6d,
+    type: 2}
+  blueArrowPrototype: {fileID: 1390187576091638, guid: 4cef4becdfb3a4172a45de7127db23de,
+    type: 2}
 --- !u!1 &809720136
 GameObject:
   m_ObjectHideFlags: 0

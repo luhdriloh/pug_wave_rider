@@ -5,7 +5,7 @@ using UnityEngine;
 public class WaveRider : MonoBehaviour {
 	public GameObject explosion;
 	public Rigidbody2D rigidBody;
-	public float horizontalMovement = 12f;
+	public float horizontalMovement = 6f;
 	public float tiltAngle = 25.0f;
 	public float smooth = 5f;
 
@@ -17,6 +17,14 @@ public class WaveRider : MonoBehaviour {
 		// lets just move from right to left
 		if (GameController.instance.gameover) {
 			return;	
+		}
+
+		if (GameConstants.scrollingSpeed <= -10) {
+			horizontalMovement = 9f;
+		}
+		else
+		{
+			horizontalMovement = 6f;
 		}
 
 		float x = Input.GetAxis("Horizontal");

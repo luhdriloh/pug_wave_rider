@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class BlueHoopPool : MonoBehaviour
 {
+	private IncomingArrowPool arrowPool;
+
 	public int poolSize = 15;
 	public GameObject prefab;
 	public float timeSinceLastSpawn = 0;
@@ -10,13 +12,14 @@ public class BlueHoopPool : MonoBehaviour
 	public float spawnRateMax = 25f;
 	public float timeLeftForNextSpawn;
 
-	private float hoopXVariability = .22f;
 	private float distanceBetweenHoops = 1f;
 
 	public ObjectPool pool;
 
 	void Awake()
 	{
+		arrowPool = GetComponent<IncomingArrowPool> ();
+	
 		ResetTimeForNextSpawn ();
 		PoolConfiguration config = new PoolConfiguration
 		{
@@ -73,6 +76,12 @@ public class BlueHoopPool : MonoBehaviour
 			GameObject blueHoop = pool.BorrowFromPool ();
 			MoveChildren(blueHoop, new Vector2(hoopXPos, hoopYPos));
 			hoopYPos += distanceBetweenHoops;
+
+			if (i == 0)
+			{
+				Transform other = blueHoop.transform.Find ("BottomHoop");
+				SetDistanceMeter (other);
+			}
 		}
 	}
 		
@@ -83,6 +92,11 @@ public class BlueHoopPool : MonoBehaviour
 		{
 			child.position = child.name.Equals ("BottomHoop") ? bottomHoopPos : newPosition;
 		}
+	}
+
+	private void SetDistanceMeter(Transform other)
+	{
+		arrowPool.SetArrow (GameConstants.ArrowColor.Blue, other);
 	}
 }
 

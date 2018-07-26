@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class GreenHoopPool : MonoBehaviour
 {
+	private IncomingArrowPool arrowPool;
+
 	public int currentObstacle = 0;
 	public int poolSize = 5;
 	public GameObject prefab;
@@ -15,6 +17,8 @@ public class GreenHoopPool : MonoBehaviour
 
 	void Awake()
 	{
+		arrowPool = GetComponent<IncomingArrowPool> ();
+
 		ResetTimeForNextSpawn ();
 		PoolConfiguration config = new PoolConfiguration
 		{
@@ -69,7 +73,13 @@ public class GreenHoopPool : MonoBehaviour
 		foreach (Transform child in parent.transform) 
 		{
 			child.position = child.name.Equals ("BottomHoop") ? bottomHoopPos : newPosition;
+			SetDistanceMeter (child);
 		}
+	}
+
+	private void SetDistanceMeter(Transform other)
+	{
+		arrowPool.SetArrow (GameConstants.ArrowColor.Green, other);
 	}
 }
 
