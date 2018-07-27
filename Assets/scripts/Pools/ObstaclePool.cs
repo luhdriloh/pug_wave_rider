@@ -35,6 +35,18 @@ public class ObstaclePool : MonoBehaviour {
 			return;
 		}
 
+		if (GameConstants.scrollingSpeed <= -14) {
+			spawnRateMax = 2.5f;
+		}
+		else if (GameConstants.scrollingSpeed <= -10)
+		{
+			spawnRateMax = 4f;
+		}
+		else
+		{
+			spawnRateMax = 5f;
+		}
+
 		System.DateTime now = System.DateTime.UtcNow;
 		double secondsSinceLastSpawn = (now - GameConstants.timeOfLastSpawn).TotalSeconds;
 

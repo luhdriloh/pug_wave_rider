@@ -638,7 +638,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   explosion: {fileID: 1990671211599276, guid: 12f2a90d33648462d8231f98a4573ecc, type: 2}
   rigidBody: {fileID: 0}
-  horizontalMovement: 6
+  horizontalMovement: 0
   tiltAngle: 25
   smooth: 10
 --- !u!60 &809720142

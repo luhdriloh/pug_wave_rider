@@ -19,7 +19,11 @@ public class WaveRider : MonoBehaviour {
 			return;	
 		}
 
-		if (GameConstants.scrollingSpeed <= -10) {
+		if (GameConstants.scrollingSpeed <= -16) {
+			horizontalMovement = 11f;
+		}
+		else if (GameConstants.scrollingSpeed <= -10)
+		{
 			horizontalMovement = 9f;
 		}
 		else
