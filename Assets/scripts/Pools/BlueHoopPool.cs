@@ -3,100 +3,104 @@ using UnityEngine;
 
 public class BlueHoopPool : MonoBehaviour
 {
-	private IncomingArrowPool arrowPool;
+    private IncomingArrowPool arrowPool;
 
-	public int poolSize = 15;
-	public GameObject prefab;
-	public float timeSinceLastSpawn = 0;
-	public float spawnRateMin = 10f;
-	public float spawnRateMax = 25f;
-	public float timeLeftForNextSpawn;
+    public int poolSize = 15;
+    public GameObject prefab;
+    public float timeSinceLastSpawn = 0;
+    public float spawnRateMin = 10f;
+    public float spawnRateMax = 25f;
+    public float timeLeftForNextSpawn;
 
-	private float distanceBetweenHoops = 1f;
+    private float distanceBetweenHoops = 1f;
 
-	public ObjectPool pool;
+    public ObjectPool pool;
 
-	void Awake()
-	{
-		arrowPool = GetComponent<IncomingArrowPool> ();
-	
-		ResetTimeForNextSpawn ();
-		PoolConfiguration config = new PoolConfiguration
-		{
-			prefab = prefab,
-			prefabTagName = "BlueHoop",
-			poolSize = poolSize,
-			initialPosition = GameConstants.poolStartPosition  
-		};
+    void Awake()
+    {
+        arrowPool = GetComponent<IncomingArrowPool>();
 
-		pool = new ObjectPool (config);
-	}
+        ResetTimeForNextSpawn();
+        PoolConfiguration config = new PoolConfiguration
+        {
+            prefab = prefab,
+            prefabTagName = "BlueHoop",
+            poolSize = poolSize,
+            initialPosition = GameConstants.poolStartPosition
+        };
 
-	// contains the logic of when this object should appear
-	void Update() {
-		if (GameController.instance.gameover)
-		{
-			return;
-		}
+        pool = new ObjectPool(config);
+    }
 
-		System.DateTime now = System.DateTime.UtcNow;
-		double secondsSinceLastSpawn = (now - GameConstants.timeOfLastSpawn).TotalSeconds;
+    // contains the logic of when this object should appear
+    void Update()
+    {
+        if (GameController.instance.gameover)
+        {
+            return;
+        }
 
-		if (secondsSinceLastSpawn < GameConstants.timeBetweenSpawns)
-		{
-			return;
-		}
-			
-		timeSinceLastSpawn += Time.deltaTime;
+        System.DateTime now = System.DateTime.UtcNow;
+        double secondsSinceLastSpawn = (now - GameConstants.timeOfLastSpawn).TotalSeconds;
 
-		if (TimeForNextSpawn())
-		{
-			CreateBlueHoopTunnel ();
-			GameController.instance.SetTimeOfLastSpawn (now + System.TimeSpan.FromSeconds(2.3));
-			timeSinceLastSpawn = 0;
-			ResetTimeForNextSpawn ();
-		}
-	}
+        if (secondsSinceLastSpawn < GameConstants.timeBetweenSpawns)
+        {
+            return;
+        }
 
-	private bool TimeForNextSpawn() {
-		return timeSinceLastSpawn >= timeLeftForNextSpawn;
-	}
+        timeSinceLastSpawn += Time.deltaTime;
 
-	private void ResetTimeForNextSpawn() {
-		timeLeftForNextSpawn = UnityEngine.Random.Range (spawnRateMin, spawnRateMax);
-	}
+        if (TimeForNextSpawn())
+        {
+            CreateBlueHoopTunnel();
+            GameController.instance.SetTimeOfLastSpawn(now + System.TimeSpan.FromSeconds(2.3));
+            timeSinceLastSpawn = 0;
+            ResetTimeForNextSpawn();
+        }
+    }
 
-	private void CreateBlueHoopTunnel()
-	{
-		float hoopYPos = GameConstants.spawnY;
-		float hoopXPos = UnityEngine.Random.Range (GameConstants.hoopMinX, GameConstants.hoopMaxX);
+    private bool TimeForNextSpawn()
+    {
+        return timeSinceLastSpawn >= timeLeftForNextSpawn;
+    }
 
-		for (int i = 0; i < poolSize; i++)
-		{
-			GameObject blueHoop = pool.BorrowFromPool ();
-			MoveChildren(blueHoop, new Vector2(hoopXPos, hoopYPos));
-			hoopYPos += distanceBetweenHoops;
+    private void ResetTimeForNextSpawn()
+    {
+        timeLeftForNextSpawn = UnityEngine.Random.Range(spawnRateMin, spawnRateMax);
+    }
 
-			if (i == 0)
-			{
-				Transform other = blueHoop.transform.Find ("BottomHoop");
-				SetDistanceMeter (other);
-			}
-		}
-	}
-		
+    private void CreateBlueHoopTunnel()
+    {
+        float hoopYPos = GameConstants.spawnY;
+        float hoopXPos = UnityEngine.Random.Range(GameConstants.hoopMinX, GameConstants.hoopMaxX);
 
-	private void MoveChildren(GameObject parent, Vector2 newPosition) {
-		Vector2 bottomHoopPos = newPosition + new Vector2 (0, -.24f);
-		foreach (Transform child in parent.transform) 
-		{
-			child.position = child.name.Equals ("BottomHoop") ? bottomHoopPos : newPosition;
-		}
-	}
+        for (int i = 0; i < poolSize; i++)
+        {
+            GameObject blueHoop = pool.BorrowFromPool();
+            MoveChildren(blueHoop, new Vector2(hoopXPos, hoopYPos));
+            hoopYPos += distanceBetweenHoops;
 
-	private void SetDistanceMeter(Transform other)
-	{
-		arrowPool.SetArrow (GameConstants.ArrowColor.Blue, other);
-	}
+            if (i == 0)
+            {
+                Transform other = blueHoop.transform.Find("BottomHoop");
+                SetDistanceMeter(other);
+            }
+        }
+    }
+
+
+    private void MoveChildren(GameObject parent, Vector2 newPosition)
+    {
+        Vector2 bottomHoopPos = newPosition + new Vector2(0, -.24f);
+        foreach (Transform child in parent.transform)
+        {
+            child.position = child.name.Equals("BottomHoop") ? bottomHoopPos : newPosition;
+        }
+    }
+
+    private void SetDistanceMeter(Transform other)
+    {
+        arrowPool.SetArrow(GameConstants.ArrowColor.Blue, other);
+    }
 }
 

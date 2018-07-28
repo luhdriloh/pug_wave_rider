@@ -2,83 +2,110 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ObstaclePool : MonoBehaviour {
-	private IncomingArrowPool arrowPool;
+public class ObstaclePool : MonoBehaviour
+{
+    private IncomingArrowPool arrowPool;
 
-	public int poolSize = 5;
-	public GameObject obstacle;
-	public float timeSinceLastSpawn = 0;
-	public float spawnRateMin = .5f;
-	public float spawnRateMax = 5f;
-	public float timeLeftForNextSpawn;
+    public int poolSize = 5;
+    public GameObject fatMissile;
+    public GameObject missile;
+    public float timeSinceLastSpawn = 0;
+    public float spawnRateMin = .5f;
+    public float spawnRateMax = 5f;
+    public float timeLeftForNextSpawn;
 
-	public ObjectPool pool;
+    public ObjectPool missilePool;
+    public ObjectPool fatMissilePool;
 
-	// Use this for initialization
-	void Awake () {
-		arrowPool = GetComponent<IncomingArrowPool> ();
+    // Use this for initialization
+    void Awake()
+    {
+        arrowPool = GetComponent<IncomingArrowPool>();
+        PoolConfiguration missileConfig = new PoolConfiguration
+        {
+            prefab = missile,
+            prefabTagName = "Missile",
+            poolSize = poolSize,
+            initialPosition = GameConstants.poolStartPosition
+        };
 
-		PoolConfiguration config = new PoolConfiguration
-		{
-			prefab = obstacle,
-			prefabTagName = "Missile",
-			poolSize = poolSize,
-			initialPosition = GameConstants.poolStartPosition
-		};
+        PoolConfiguration fatMissileConfig = new PoolConfiguration
+        {
+            prefab = fatMissile,
+            prefabTagName = "Missile",
+            poolSize = poolSize,
+            initialPosition = GameConstants.poolStartPosition
+        };
 
-		pool = new ObjectPool (config);
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		if (GameController.instance.gameover) {
-			return;
-		}
+        missilePool = new ObjectPool(missileConfig);
+        fatMissilePool = new ObjectPool(fatMissileConfig);
+    }
 
-		if (GameConstants.scrollingSpeed <= -14) {
-			spawnRateMax = 2.5f;
-		}
-		else if (GameConstants.scrollingSpeed <= -10)
-		{
-			spawnRateMax = 4f;
-		}
-		else
-		{
-			spawnRateMax = 5f;
-		}
+    // Update is called once per frame
+    void Update()
+    {
+        if (GameController.instance.gameover)
+        {
+            return;
+        }
 
-		System.DateTime now = System.DateTime.UtcNow;
-		double secondsSinceLastSpawn = (now - GameConstants.timeOfLastSpawn).TotalSeconds;
+        if (GameConstants.scrollingSpeed <= -14)
+        {
+            spawnRateMax = 2f;
+        }
+        else if (GameConstants.scrollingSpeed <= -10)
+        {
+            spawnRateMax = 4f;
+        }
+        else
+        {
+            spawnRateMax = 5f;
+        }
 
-		if (secondsSinceLastSpawn < GameConstants.timeBetweenSpawns)
-		{
-			return;
-		}
+        System.DateTime now = System.DateTime.UtcNow;
+        double secondsSinceLastSpawn = (now - GameConstants.timeOfLastSpawn).TotalSeconds;
 
-		timeSinceLastSpawn += Time.deltaTime;
+        if (secondsSinceLastSpawn < GameConstants.timeBetweenSpawns)
+        {
+            return;
+        }
 
-		if (TimeForNextSpawn()) {
-			float randomX = Random.Range (GameConstants.obstacleMinX, GameConstants.obstacleMaxX);
-			GameObject obj = pool.BorrowFromPool ();
-			obj.transform.position = new Vector2 (randomX, GameConstants.spawnY);
+        timeSinceLastSpawn += Time.deltaTime;
 
-			// rotate the missile 180 on the z axis
-			obj.transform.rotation = Quaternion.Euler (0, 0, 180);
+        if (TimeForNextSpawn())
+        {
+            float randomX = Random.Range(GameConstants.obstacleMinX, GameConstants.obstacleMaxX);
+            GameObject obj;
 
-			arrowPool.SetArrow (GameConstants.ArrowColor.Red, obj.transform);
+            if (GameConstants.scrollingSpeed <= -14 && Random.value > .8f)
+            {
+                obj = fatMissilePool.BorrowFromPool();
+            }
+            else
+            {
+                obj = missilePool.BorrowFromPool();
+            }
 
-			GameController.instance.SetTimeOfLastSpawn (now);
-			timeSinceLastSpawn = 0;
-			ResetTimeForNextSpawn ();
-		}
-	}
+            obj.transform.position = new Vector2(randomX, GameConstants.spawnY);
+
+            // rotate the missile 180 on the z axis
+            obj.transform.rotation = Quaternion.Euler(0, 0, 180);
+            arrowPool.SetArrow(GameConstants.ArrowColor.Red, obj.transform);
+
+            GameController.instance.SetTimeOfLastSpawn(now);
+            timeSinceLastSpawn = 0;
+            ResetTimeForNextSpawn();
+        }
+    }
 
 
-	private bool TimeForNextSpawn() {
-		return timeSinceLastSpawn >= timeLeftForNextSpawn;
-	}
+    private bool TimeForNextSpawn()
+    {
+        return timeSinceLastSpawn >= timeLeftForNextSpawn;
+    }
 
-	private void ResetTimeForNextSpawn() {
-		timeLeftForNextSpawn = UnityEngine.Random.Range (spawnRateMin, spawnRateMax);
-	}
+    private void ResetTimeForNextSpawn()
+    {
+        timeLeftForNextSpawn = UnityEngine.Random.Range(spawnRateMin, spawnRateMax);
+    }
 }
